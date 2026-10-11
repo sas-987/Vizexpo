@@ -1,5 +1,3 @@
-
-
 import os, sys, math, time, heapq
 from dataclasses import dataclass, field
 from typing import Optional
@@ -383,7 +381,8 @@ def drive_to_max(game, heading_deg, all_nodes, max_ticks=8000):
                           f"  L={left_d:.0f} R={right_d:.0f} fwd={fwd_d:.0f} — stopping")
                     return side_stops, (px, py), 'ROOM_CENTER', travelled
 
-          
+            # Side opening: either side deeper than SIDE_OPEN_DEPTH (no ratio gate)
+            side_open = left_d > SIDE_OPEN_DEPTH or right_d > SIDE_OPEN_DEPTH
             if side_open and not any(
                 dist2(px, py, n.x, n.y) < REVISIT_RADIUS for n in all_nodes
             ):
